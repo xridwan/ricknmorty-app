@@ -39,3 +39,9 @@ android {
 }
 
 apply from: '../shared-dependencies.gradle'
+
+dependencies {
+    // Access other module
+    implementation project(":data")
+    implementation project(":domain")
+}
