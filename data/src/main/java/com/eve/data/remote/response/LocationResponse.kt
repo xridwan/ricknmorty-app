@@ -2,6 +2,7 @@ package com.eve.data.remote.response
 
 import android.os.Parcelable
 import com.eve.data.local.entity.LocationEntity
+import com.eve.data.utils.replaceIfNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -34,37 +35,37 @@ data class LocationResponse(
 data class LocationItem(
 
     @field:SerializedName("created")
-    val created: String? = null,
+    val created: String?,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String?,
 
 //	@field:SerializedName("residents")
 //	val residents: List<String>,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int?,
 
     @field:SerializedName("type")
-    val type: String? = null,
+    val type: String?,
 
     @field:SerializedName("dimension")
-    val dimension: String? = null,
+    val dimension: String?,
 
     @field:SerializedName("url")
-    val url: String? = null,
+    val url: String?,
 ) : Parcelable {
     companion object {
         fun transformToEntities(input: LocationResponse): List<LocationEntity> {
             val dataList = ArrayList<LocationEntity>()
             input.results.map {
                 val item = LocationEntity(
-                    id = it.id ?: 0,
-                    created = it.created ?: "",
-                    name = it.name ?: "",
-                    type = it.type ?: "",
-                    dimension = it.dimension ?: "",
-                    url = it.url ?: "",
+                    id = it.id.replaceIfNull(),
+                    created = it.created.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
+                    type = it.type.replaceIfNull(),
+                    dimension = it.dimension.replaceIfNull(),
+                    url = it.url.replaceIfNull(),
                 )
                 dataList.add(item)
             }

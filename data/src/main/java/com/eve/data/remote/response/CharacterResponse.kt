@@ -2,6 +2,7 @@ package com.eve.data.remote.response
 
 import android.os.Parcelable
 import com.eve.data.local.entity.CharacterEntity
+import com.eve.data.utils.replaceIfNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -48,15 +49,15 @@ data class CharacterItem(
             val dataList = ArrayList<CharacterEntity>()
             input.results.map {
                 val item = CharacterEntity(
-                    id = it.id ?: 0,
-                    image = it.image ?: "",
-                    gender = it.gender ?: "",
-                    species = it.species ?: "",
-                    created = it.created ?: "",
-                    type = it.type ?: "",
-                    url = it.url ?: "",
-                    status = it.status ?: "",
-                    name = it.name ?: "",
+                    id = it.id.replaceIfNull(),
+                    image = it.image.replaceIfNull(),
+                    gender = it.gender.replaceIfNull(),
+                    species = it.species.replaceIfNull(),
+                    created = it.created.replaceIfNull(),
+                    type = it.type.replaceIfNull(),
+                    url = it.url.replaceIfNull(),
+                    status = it.status.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
                 )
                 dataList.add(item)
             }

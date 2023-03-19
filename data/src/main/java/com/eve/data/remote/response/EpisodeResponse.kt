@@ -2,6 +2,7 @@ package com.eve.data.remote.response
 
 import android.os.Parcelable
 import com.eve.data.local.entity.EpisodeEntity
+import com.eve.data.utils.replaceIfNull
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -34,37 +35,37 @@ data class EpisodeResponse(
 data class EpisodeItem(
 
     @field:SerializedName("air_date")
-    val airDate: String? = null,
+    val airDate: String?,
 
-    @field:SerializedName("characters")
-    val characters: List<String?>? = null,
+//    @field:SerializedName("characters")
+//    val characters: List<String?>? = null,
 
     @field:SerializedName("created")
-    val created: String? = null,
+    val created: String?,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String?,
 
     @field:SerializedName("episode")
-    val episode: String? = null,
+    val episode: String?,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int?,
 
     @field:SerializedName("url")
-    val url: String? = null,
+    val url: String?,
 ) : Parcelable {
     companion object {
         fun transformToEntities(input: EpisodeResponse): List<EpisodeEntity> {
             val dataList = ArrayList<EpisodeEntity>()
             input.results.map {
                 val item = EpisodeEntity(
-                    id = it.id ?: 0,
-                    name = it.name ?: "",
-                    air_date = it.airDate ?: "",
-                    episode = it.episode ?: "",
-                    url = it.url ?: "",
-                    created = it.created ?: ""
+                    id = it.id.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
+                    air_date = it.airDate.replaceIfNull(),
+                    episode = it.episode.replaceIfNull(),
+                    url = it.url.replaceIfNull(),
+                    created = it.created.replaceIfNull()
                 )
                 dataList.add(item)
             }
