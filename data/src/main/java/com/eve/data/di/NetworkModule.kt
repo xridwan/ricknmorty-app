@@ -7,6 +7,7 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.eve.data.BuildConfig.BASE_URL
 import com.eve.data.remote.service.CharacterService
 import com.eve.data.remote.service.EpisodeService
+import com.eve.data.remote.service.LocationService
 import com.eve.data.utils.Constants.CONNECT_TIMEOUT
 import com.eve.data.utils.Constants.READ_TIMEOUT
 import com.eve.data.utils.Constants.WRITE_TIMEOUT
@@ -77,5 +78,12 @@ object NetworkModule {
     @Singleton
     fun provideEpisodeService(retrofit: Retrofit): EpisodeService =
         retrofit.create(EpisodeService::class.java)
+
+    // Location
+    @Provides
+    @Singleton
+    fun provideLocationService(retrofit: Retrofit): LocationService =
+        retrofit.create(LocationService::class.java)
+
     // Other service ...
 }

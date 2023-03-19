@@ -4,16 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.eve.data.local.entity.CharacterEntity
+import com.eve.data.local.entity.LocationEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AppDao {
+interface LocationDao {
 
-    @Query("SELECT * FROM character")
-    fun getAllCharacter(): Flow<List<CharacterEntity>>
+    @Query("SELECT * FROM location")
+    fun getAllLocation(): Flow<List<LocationEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(news: List<CharacterEntity>)
+    suspend fun insertLocation(location: List<LocationEntity>)
 
 }

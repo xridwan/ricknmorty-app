@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.eve.data.local.room.AppDao
 import com.eve.data.local.room.AppDatabase
 import com.eve.data.local.room.EpisodeDao
+import com.eve.data.local.room.LocationDao
 import com.eve.data.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -35,4 +36,11 @@ object DatabaseModule {
     fun provideEpisodeDao(database: AppDatabase): EpisodeDao {
         return database.episodeDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideLocationDao(database: AppDatabase): LocationDao {
+        return database.locationDao()
+    }
+
 }

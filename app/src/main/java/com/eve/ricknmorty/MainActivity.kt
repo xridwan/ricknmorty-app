@@ -20,6 +20,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         getCharacter()
         getAllEpisode()
+        getAllLocation()
+    }
+
+    private fun getAllLocation() {
+        viewModel.allLocation.observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding.tvLocation.text = getString(R.string.loading_text)
+                }
+                is Resource.Success -> {
+                    val data = response.data?.size
+                    binding.tvLocation.text = "Location : ${data.toString()}"
+                }
+                is Resource.Error -> {
+                    binding.tvLocation.text = response.message.toString()
+                }
+            }
+        }
     }
 
     private fun getAllEpisode() {
@@ -46,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 is Resource.Success -> {
                     val data = response.data?.size
-                    binding.tvTest.text = data.toString()
+                    binding.tvTest.text = "Character : ${data.toString()}"
                 }
                 is Resource.Error -> {
                     binding.tvTest.text = response.message.toString()
