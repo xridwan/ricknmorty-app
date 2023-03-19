@@ -5,8 +5,8 @@ import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.eve.data.BuildConfig.BASE_URL
-import com.eve.data.source.character.CharacterRemoteDataSource
 import com.eve.data.remote.service.CharacterService
+import com.eve.data.remote.service.EpisodeService
 import com.eve.data.utils.Constants.CONNECT_TIMEOUT
 import com.eve.data.utils.Constants.READ_TIMEOUT
 import com.eve.data.utils.Constants.WRITE_TIMEOUT
@@ -72,5 +72,10 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): CharacterService =
         retrofit.create(CharacterService::class.java)
 
+    /*  Episode */
+    @Provides
+    @Singleton
+    fun provideEpisodeService(retrofit: Retrofit): EpisodeService =
+        retrofit.create(EpisodeService::class.java)
     // Other service ...
 }

@@ -4,20 +4,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.eve.data.local.entity.CharacterEntity
 import com.eve.data.local.entity.EpisodeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AppDao {
+interface EpisodeDao {
 
-    // Character
-    @Query("SELECT * FROM character")
-    fun getAllCharacter(): Flow<List<CharacterEntity>>
+    @Query("SELECT * FROM episode")
+    fun getAllEpisode(): Flow<List<EpisodeEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(news: List<CharacterEntity>)
-
-    // Other query ...
+    suspend fun insertEpisode(episode: List<EpisodeEntity>)
 
 }
