@@ -6,6 +6,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.0'
     implementation 'androidx.activity:activity-ktx:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.5'
+
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -32,4 +34,7 @@ dependencies {
 
     // Chucker
     implementation "com.github.chuckerteam.chucker:library:$chucker_version"
+
+    /*  Bottom Navigation */
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
 }
