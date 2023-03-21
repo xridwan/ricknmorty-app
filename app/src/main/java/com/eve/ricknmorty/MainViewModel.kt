@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     characterUseCase: CharacterUseCase,
     episodeUseCase: EpisodeUseCase,
-    locationUseCase: LocationUseCase
+    locationUseCase: LocationUseCase,
 ) : ViewModel() {
 
     val allCharacter = characterUseCase.getAllCharacter().asLiveData()

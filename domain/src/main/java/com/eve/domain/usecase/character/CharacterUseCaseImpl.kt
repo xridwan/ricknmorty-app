@@ -6,10 +6,14 @@ import com.eve.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharacterInteractor @Inject constructor(
+class CharacterUseCaseImpl @Inject constructor(
     private val characterRepository: CharacterRepository,
 ) : CharacterUseCase {
     override fun getAllCharacter(): Flow<Resource<List<Character>>> {
         return characterRepository.getAllCharacter()
+    }
+
+    override fun getCharacter(id: Int): Flow<Resource<Character>> {
+        return characterRepository.getCharacter(id)
     }
 }

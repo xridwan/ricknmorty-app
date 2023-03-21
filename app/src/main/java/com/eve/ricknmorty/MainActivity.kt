@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         getCharacter()
         getAllEpisode()
         getAllLocation()
+        getCharacterDetail()
     }
 
     private fun getAllLocation() {
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                     binding.tvLocation.text = "Location : ${data.toString()}"
                 }
                 is Resource.Error -> {
-                    binding.tvLocation.text = response.message.toString()
+                    binding.tvLocation.text = response.message
                 }
             }
         }
@@ -67,7 +69,24 @@ class MainActivity : AppCompatActivity() {
                     binding.tvTest.text = "Character : ${data.toString()}"
                 }
                 is Resource.Error -> {
-                    binding.tvTest.text = response.message.toString()
+                    binding.tvTest.text = response.message
+                }
+            }
+        }
+    }
+
+    private fun getCharacterDetail() {
+        detailViewModel.getCharacter(2).observe(this) { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    binding.tvCharacter.text = getString(R.string.loading_text)
+                }
+                is Resource.Success -> {
+                    val data = response.data
+                    binding.tvCharacter.text = data?.name
+                }
+                is Resource.Error -> {
+                    binding.tvCharacter.text = response.message
                 }
             }
         }

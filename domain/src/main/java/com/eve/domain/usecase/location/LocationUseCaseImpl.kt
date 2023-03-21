@@ -6,7 +6,7 @@ import com.eve.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LocationInteractor @Inject constructor(
+class LocationUseCaseImpl @Inject constructor(
     private val locationRepository: LocationRepository,
 ) : LocationUseCase {
     override fun getAllLocation(): Flow<Resource<List<Location>>> {

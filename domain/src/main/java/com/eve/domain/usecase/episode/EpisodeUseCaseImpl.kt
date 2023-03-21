@@ -6,7 +6,7 @@ import com.eve.domain.repository.EpisodeRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class EpisodeInteractor @Inject constructor(
+class EpisodeUseCaseImpl @Inject constructor(
     private val episodeRepository: EpisodeRepository,
 ) : EpisodeUseCase {
     override fun getAllEpisode(): Flow<Resource<List<Episode>>> {

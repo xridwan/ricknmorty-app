@@ -1,6 +1,7 @@
 package com.eve.data.source.character
 
 import com.eve.data.remote.network.ApiResponse
+import com.eve.data.remote.response.CharacterItem
 import com.eve.data.remote.response.CharacterResponse
 import com.eve.data.remote.service.CharacterService
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,18 @@ class CharacterRemoteDataSource @Inject constructor(
                 val response = characterService.getAllCharacter()
                 val data = response.results
                 if (data.isNotEmpty()) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getCharacter(id: Int): Flow<ApiResponse<CharacterItem>> {
+        return flow {
+            try {
+                val response = characterService.getCharacter(id)
+                if (response.id != null) emit(ApiResponse.Success(response))
                 else emit(ApiResponse.Empty)
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))

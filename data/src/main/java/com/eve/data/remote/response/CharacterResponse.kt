@@ -3,6 +3,7 @@ package com.eve.data.remote.response
 import android.os.Parcelable
 import com.eve.data.local.entity.CharacterEntity
 import com.eve.data.utils.replaceIfNull
+import com.eve.domain.model.Character
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -62,6 +63,20 @@ data class CharacterItem(
                 dataList.add(item)
             }
             return dataList
+        }
+
+        fun transformDetailToDomain(input: CharacterItem): Character {
+            return Character(
+                id = input.id.replaceIfNull(),
+                image = input.image.replaceIfNull(),
+                gender = input.gender.replaceIfNull(),
+                species = input.species.replaceIfNull(),
+                created = input.created.replaceIfNull(),
+                type = input.type.replaceIfNull(),
+                url = input.url.replaceIfNull(),
+                status = input.status.replaceIfNull(),
+                name = input.name.replaceIfNull(),
+            )
         }
     }
 }
