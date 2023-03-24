@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
         setupFragment()
 
-        /* Not Best Practice (?) */
         callFragment(
             fragment = CharacterFragment(),
             menuApp = MenuApp.CHARACTER,
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-//        binding.bottomNavigation.setItemSelected(R.id.menuCharacter)
         binding.bottomNavigation.setOnItemSelectedListener { nav ->
             when (nav) {
                 R.id.menuCharacter -> {
