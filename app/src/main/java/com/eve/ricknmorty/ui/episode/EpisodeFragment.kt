@@ -3,6 +3,7 @@ package com.eve.ricknmorty.ui.episode
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.eve.domain.Resource
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentEpisodeBinding
@@ -15,11 +16,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
 
     private val viewModel: EpisodeViewModel by viewModels()
 
+    private val episodeAdapter: EpisodeAdapter by lazy { EpisodeAdapter() }
+
     override fun initializationLayout(inflater: LayoutInflater): FragmentEpisodeBinding {
         return FragmentEpisodeBinding.inflate(inflater)
     }
 
     override fun setupView() {
+        setupRecyclerview()
     }
 
     override fun initialization() {
@@ -33,12 +37,23 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
                     Log.d(TAG, "getAllEpisode: Loading...")
                 }
                 is Resource.Success -> {
-                    Log.d(TAG, "getAllEpisode: ${response.data}")
+                    if (!response.data.isNullOrEmpty()) {
+                        episodeAdapter.differ.submitList(response.data)
+                    }
                 }
                 is Resource.Error -> {
 
                 }
             }
+        }
+    }
+
+    private fun setupRecyclerview() {
+        binding.rvEpisode.apply {
+            val mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+            mLayoutManager.stackFromEnd = true
+            layoutManager = mLayoutManager
+            adapter = episodeAdapter
         }
     }
 
