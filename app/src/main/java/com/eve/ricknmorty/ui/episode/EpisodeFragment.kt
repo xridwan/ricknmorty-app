@@ -1,4 +1,4 @@
-package com.eve.ricknmorty.episode
+package com.eve.ricknmorty.ui.episode
 
 import android.util.Log
 import android.view.LayoutInflater

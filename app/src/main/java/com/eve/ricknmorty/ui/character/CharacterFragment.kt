@@ -1,4 +1,4 @@
-package com.eve.ricknmorty.character
+package com.eve.ricknmorty.ui.character
 
 import android.view.LayoutInflater
 import com.eve.ricknmorty.base.BaseFragment

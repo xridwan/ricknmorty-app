@@ -1,4 +1,4 @@
-package com.eve.ricknmorty.location
+package com.eve.ricknmorty.ui.location
 
 import android.view.LayoutInflater
 import com.eve.ricknmorty.base.BaseFragment
