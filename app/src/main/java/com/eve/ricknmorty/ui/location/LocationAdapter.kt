@@ -1,4 +1,4 @@
-package com.eve.ricknmorty.ui.episode
+package com.eve.ricknmorty.ui.location
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.eve.domain.model.Episode
+import com.eve.domain.model.Location
 import com.eve.ricknmorty.R
 import com.eve.ricknmorty.databinding.ItemEpisodeBinding
 
-class EpisodeAdapter(
+class LocationAdapter(
     private val listener: Listener,
-) : RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
+) : RecyclerView.Adapter<LocationAdapter.EpisodeViewHolder>() {
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Episode>() {
-        override fun areItemsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Location>() {
+        override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Episode, newItem: Episode): Boolean {
+        override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
     }
@@ -40,12 +40,12 @@ class EpisodeAdapter(
 
     inner class EpisodeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemEpisodeBinding.bind(view)
-        fun bindData(data: Episode) {
+        fun bindData(data: Location) {
             binding.apply {
-                txtEpisode.text = data.episode
-                Log.d("EpisodeFragment", "bindData: ${data.episode}")
+                txtEpisode.text = data.created
+                Log.d("EpisodeFragment", "bindData: ${data.name}")
                 txtName.text = data.name
-                txtDate.text = data.air_date
+                txtDate.text = data.type
             }
             itemView.setOnClickListener {
                 listener.listener(data)
@@ -58,7 +58,7 @@ class EpisodeAdapter(
 //            parent, false))
 
         return EpisodeViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_episode, parent, false))
+            .inflate(R.layout.item_location, parent, false))
 
     }
 
@@ -71,6 +71,6 @@ class EpisodeAdapter(
     }
 
     interface Listener {
-        fun listener(data: Episode)
+        fun listener(data: Location)
     }
 }

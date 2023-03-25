@@ -1,6 +1,7 @@
 package com.eve.data.source.location
 
 import com.eve.data.NetworkBoundResource
+import com.eve.data.NetworkResource
 import com.eve.data.local.entity.LocationEntity
 import com.eve.data.remote.network.ApiResponse
 import com.eve.data.remote.response.LocationItem
@@ -36,6 +37,21 @@ class LocationRepositoryImpl @Inject constructor(
             override suspend fun saveCallResult(data: LocationResponse) {
                 val dataList = LocationItem.transformToEntities(data)
                 localDataSource.insertLocation(dataList)
+            }
+        }.asFlow()
+
+    override fun getLocation(id: Int): Flow<Resource<Location>> =
+        object : NetworkResource<Location, LocationItem>() {
+            override suspend fun callRequest(): Flow<ApiResponse<LocationItem>> {
+                return remoteDataSource.getLocation(id)
+            }
+
+            override suspend fun resultResponse(data: LocationItem): Location {
+                return LocationItem.transformDetailToDomain(data)
+            }
+
+            override fun shouldFetch(data: Location?): Boolean {
+                return false
             }
         }.asFlow()
 }

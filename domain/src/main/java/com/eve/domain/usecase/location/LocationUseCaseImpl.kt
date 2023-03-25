@@ -12,4 +12,8 @@ class LocationUseCaseImpl @Inject constructor(
     override fun getAllLocation(): Flow<Resource<List<Location>>> {
         return locationRepository.getAllLocation()
     }
+
+    override fun getLocation(id: Int): Flow<Resource<Location>> {
+        return locationRepository.getLocation(id)
+    }
 }

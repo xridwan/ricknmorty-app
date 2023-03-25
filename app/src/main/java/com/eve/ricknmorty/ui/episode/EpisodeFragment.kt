@@ -5,18 +5,17 @@ import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eve.domain.Resource
+import com.eve.domain.model.Episode
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentEpisodeBinding
+import com.eve.ricknmorty.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
-
-    private val TAG = EpisodeFragment::class.java.simpleName
+class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(), EpisodeAdapter.Listener {
 
     private val viewModel: EpisodeViewModel by viewModels()
-
-    private val episodeAdapter: EpisodeAdapter by lazy { EpisodeAdapter() }
+    private val episodeAdapter: EpisodeAdapter by lazy { EpisodeAdapter(this) }
 
     override fun initializationLayout(inflater: LayoutInflater): FragmentEpisodeBinding {
         return FragmentEpisodeBinding.inflate(inflater)
@@ -42,10 +41,14 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
                     }
                 }
                 is Resource.Error -> {
-
+                    showToast(response.message.toString())
                 }
             }
         }
+    }
+
+    override fun listener(data: Episode) {
+        showToast(data.name)
     }
 
     private fun setupRecyclerview() {
@@ -57,4 +60,7 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>() {
         }
     }
 
+    companion object {
+        private val TAG = EpisodeFragment::class.java.simpleName
+    }
 }
