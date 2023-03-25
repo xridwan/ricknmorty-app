@@ -8,6 +8,9 @@ buildscript {
         picasso_version = '2.71828'
         leak_version = '2.7'
         chucker_version = '3.5.2'
+        circle_version = '3.1.0'
+        navigation_version = '1.4.0'
+        shimmer_version = '0.5.0@aar'
     }
 }
 plugins {

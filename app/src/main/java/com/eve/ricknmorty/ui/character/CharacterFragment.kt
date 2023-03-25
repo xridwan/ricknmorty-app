@@ -1,20 +1,24 @@
 package com.eve.ricknmorty.ui.character
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eve.domain.Resource
+import com.eve.domain.model.Character
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentCharacterBinding
+import com.eve.ricknmorty.ui.detailcharacter.DetailCharacterActivity
+import com.eve.ricknmorty.utils.show
 import com.eve.ricknmorty.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
+class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAdapter.Listener {
 
     private val viewModel: CharacterViewModel by viewModels()
-    private val characterAdapter: CharacterAdapter by lazy { CharacterAdapter() }
+    private val characterAdapter: CharacterAdapter by lazy { CharacterAdapter(this) }
 
     override fun initializationLayout(inflater: LayoutInflater): FragmentCharacterBinding {
         return FragmentCharacterBinding.inflate(inflater)
@@ -32,13 +36,14 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
         viewModel.allCharacter.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    Log.d(TAG, "getAllCharacter: Loading...")
+                    showShimmer(binding.shimmerCharacter.root)
                 }
                 is Resource.Success -> {
                     if (!response.data.isNullOrEmpty()) {
+                        dismissShimmer(binding.shimmerCharacter.root)
+                        binding.rvCharacter.show()
                         characterAdapter.differ.submitList(response.data)
                     }
-                    Log.d(TAG, "getAllCharacter: ${response.data}")
                 }
                 is Resource.Error -> {
                     showToast(response.message.toString())
@@ -49,10 +54,6 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     private fun setupRecyclerview() {
         binding.rvCharacter.apply {
-//            val mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
-//            val gridLayout = GridLayoutManager
-//            mLayoutManager.stackFromEnd = true
-//            layoutManager = mLayoutManager
             layoutManager = GridLayoutManager(context, 2)
             adapter = characterAdapter
         }
@@ -60,5 +61,16 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>() {
 
     companion object {
         private val TAG = CharacterFragment::class.java.simpleName
+    }
+
+    override fun onClickListener(data: Character) {
+        showToast(data.name)
+        val intent = Intent(context, DetailCharacterActivity::class.java)
+        intent.putExtra("CHARACTER", data)
+        Log.d(TAG, "onClickListener: $data")
+        startActivity(intent)
+//        startActivity(Intent(context, DetailCharacterActivity::class.java)
+//            .putExtra("CHARACTER", data))
+
     }
 }

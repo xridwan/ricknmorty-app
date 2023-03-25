@@ -31,11 +31,14 @@ dependencies {
 
     /*  Image   */
     implementation "com.squareup.picasso:picasso:$picasso_version"
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation "de.hdodenhof:circleimageview:$circle_version"
 
     // Chucker
     implementation "com.github.chuckerteam.chucker:library:$chucker_version"
 
     /*  Bottom Navigation */
-    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+    implementation "com.github.ismaeldivita:chip-navigation-bar:$navigation_version"
+
+    /*  Shimmer */
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 }

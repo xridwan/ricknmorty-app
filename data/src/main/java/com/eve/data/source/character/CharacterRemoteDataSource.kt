@@ -26,7 +26,7 @@ class CharacterRemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getCharacter(id: Int): Flow<ApiResponse<CharacterItem>> {
+    fun getCharacter(id: Int?): Flow<ApiResponse<CharacterItem>> {
         return flow {
             try {
                 val response = characterService.getCharacter(id)

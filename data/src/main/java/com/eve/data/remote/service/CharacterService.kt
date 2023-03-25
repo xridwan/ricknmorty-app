@@ -11,5 +11,5 @@ interface CharacterService {
     suspend fun getAllCharacter(): CharacterResponse
 
     @GET("character/{id}")
-    suspend fun getCharacter(@Path("id") id: Int): CharacterItem
+    suspend fun getCharacter(@Path("id") id: Int?): CharacterItem
 }
