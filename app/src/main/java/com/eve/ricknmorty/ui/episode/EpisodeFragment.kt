@@ -8,6 +8,8 @@ import com.eve.domain.Resource
 import com.eve.domain.model.Episode
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentEpisodeBinding
+import com.eve.ricknmorty.utils.gone
+import com.eve.ricknmorty.utils.show
 import com.eve.ricknmorty.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,10 +35,12 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(), EpisodeAdapter.L
         viewModel.allEpisode.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    Log.d(TAG, "getAllEpisode: Loading...")
+                    showShimmer(binding.shimmerEpisode.root)
                 }
                 is Resource.Success -> {
                     if (!response.data.isNullOrEmpty()) {
+                        dismissShimmer(binding.shimmerEpisode.root)
+                        binding.rvEpisode.show()
                         episodeAdapter.differ.submitList(response.data)
                     }
                 }
@@ -49,6 +53,7 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(), EpisodeAdapter.L
 
     override fun listener(data: Episode) {
         showToast(data.name)
+        Log.d(TAG, "listener: ${data.name}")
     }
 
     private fun setupRecyclerview() {

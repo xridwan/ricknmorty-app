@@ -40,7 +40,7 @@ class CharacterRepositoryImpl @Inject constructor(
             }
         }.asFlow()
 
-    override fun getCharacter(id: Int): Flow<Resource<Character>> =
+    override fun getCharacter(id: Int?): Flow<Resource<Character>> =
         object : NetworkResource<Character, CharacterItem>() {
             override suspend fun callRequest(): Flow<ApiResponse<CharacterItem>> {
                 return remoteDataSource.getCharacter(id)

@@ -27,23 +27,11 @@ class EpisodeAdapter(
 
     val differ = AsyncListDiffer(this, diffCallback)
 
-//    inner class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//        fun bindData(data: Episode) {
-//            binding.apply {
-//                txtEpisode.text = data.episode
-//                txtName.text = data.name
-//                txtDate.text = data.air_date
-//            }
-//        }
-//    }
-
     inner class EpisodeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemEpisodeBinding.bind(view)
         fun bindData(data: Episode) {
             binding.apply {
                 txtEpisode.text = data.episode
-                Log.d("EpisodeFragment", "bindData: ${data.episode}")
                 txtName.text = data.name
                 txtDate.text = data.air_date
             }
@@ -54,12 +42,8 @@ class EpisodeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpisodeViewHolder {
-//        return EpisodeViewHolder(ItemEpisodeBinding.inflate(LayoutInflater.from(parent.context),
-//            parent, false))
-
         return EpisodeViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_episode, parent, false))
-
     }
 
     override fun onBindViewHolder(holder: EpisodeViewHolder, position: Int) {

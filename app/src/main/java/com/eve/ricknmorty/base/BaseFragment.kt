@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.eve.ricknmorty.utils.gone
+import com.eve.ricknmorty.utils.show
+import com.facebook.shimmer.ShimmerFrameLayout
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseView {
 
     protected lateinit var binding: VB
     protected abstract fun initializationLayout(inflater: LayoutInflater): VB
@@ -33,6 +36,16 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     private fun getInflatedLayout(layoutInflater: LayoutInflater): View {
         binding = initializationLayout(layoutInflater)
         return binding.root
+    }
+
+    override fun showShimmer(shimmer: ShimmerFrameLayout) {
+        shimmer.show()
+        shimmer.startShimmer()
+    }
+
+    override fun dismissShimmer(shimmer: ShimmerFrameLayout) {
+        shimmer.stopShimmer()
+        shimmer.gone()
     }
 
 }
