@@ -28,3 +28,9 @@ fun Long?.replaceIfNull(replacementValue: Long = 0L): Long {
         return replacementValue
     return this
 }
+
+fun<T> List<T>?.replaceIfNull(replacementValue: List<T> = emptyList()): List<T> {
+    if (this == null)
+        return replacementValue
+    return this
+}

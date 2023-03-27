@@ -34,6 +34,7 @@ data class CharacterEntity(
                     url = it.url,
                     status = it.status,
                     name = it.name,
+                    episode = emptyList()
                 )
             }
         }

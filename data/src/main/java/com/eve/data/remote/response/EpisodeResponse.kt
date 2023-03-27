@@ -3,6 +3,8 @@ package com.eve.data.remote.response
 import android.os.Parcelable
 import com.eve.data.local.entity.EpisodeEntity
 import com.eve.data.utils.replaceIfNull
+import com.eve.domain.model.Episode
+import com.eve.domain.model.Location
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -70,6 +72,17 @@ data class EpisodeItem(
                 dataList.add(item)
             }
             return dataList
+        }
+
+        fun transformDetailToDomain(input: EpisodeItem): Episode {
+            return Episode(
+                id = input.id.replaceIfNull(),
+                created = input.created.replaceIfNull(),
+                name = input.name.replaceIfNull(),
+                air_date = input.airDate.replaceIfNull(),
+                url = input.url.replaceIfNull(),
+                episode = input.episode.replaceIfNull()
+            )
         }
     }
 }

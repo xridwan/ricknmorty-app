@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.eve.data.utils.Constants.EXTRA_DATA
 import com.eve.domain.Resource
 import com.eve.domain.model.Character
 import com.eve.ricknmorty.base.BaseFragment
@@ -66,7 +67,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
     override fun onClickListener(data: Character) {
         showToast(data.name)
         val intent = Intent(context, DetailCharacterActivity::class.java)
-        intent.putExtra("CHARACTER", data)
+        intent.putExtra(EXTRA_DATA, data)
         Log.d(TAG, "onClickListener: $data")
         startActivity(intent)
 //        startActivity(Intent(context, DetailCharacterActivity::class.java)

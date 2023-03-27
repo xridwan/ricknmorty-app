@@ -14,4 +14,5 @@ data class Character(
     val url: String,
     val status: String,
     val name: String,
+    val episode: List<String>,
 ) : Parcelable

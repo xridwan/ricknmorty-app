@@ -3,6 +3,7 @@ package com.eve.data.source.character
 import com.eve.data.remote.network.ApiResponse
 import com.eve.data.remote.response.CharacterItem
 import com.eve.data.remote.response.CharacterResponse
+import com.eve.data.remote.response.EpisodeItem
 import com.eve.data.remote.service.CharacterService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -30,6 +31,18 @@ class CharacterRemoteDataSource @Inject constructor(
         return flow {
             try {
                 val response = characterService.getCharacter(id)
+                if (response.id != null) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getEpisodeItem(url: String?): Flow<ApiResponse<EpisodeItem>> {
+        return flow {
+            try {
+                val response = characterService.getEpisodeItem(url)
                 if (response.id != null) emit(ApiResponse.Success(response))
                 else emit(ApiResponse.Empty)
             } catch (e: Exception) {

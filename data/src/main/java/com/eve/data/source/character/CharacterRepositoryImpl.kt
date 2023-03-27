@@ -6,8 +6,10 @@ import com.eve.data.local.entity.CharacterEntity
 import com.eve.data.remote.network.ApiResponse
 import com.eve.data.remote.response.CharacterItem
 import com.eve.data.remote.response.CharacterResponse
+import com.eve.data.remote.response.EpisodeItem
 import com.eve.domain.Resource
 import com.eve.domain.model.Character
+import com.eve.domain.model.Episode
 import com.eve.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -51,6 +53,21 @@ class CharacterRepositoryImpl @Inject constructor(
             }
 
             override fun shouldFetch(data: Character?): Boolean {
+                return false
+            }
+        }.asFlow()
+
+    override fun getEpisodeItem(url: String): Flow<Resource<Episode>> =
+        object : NetworkResource<Episode, EpisodeItem>() {
+            override suspend fun callRequest(): Flow<ApiResponse<EpisodeItem>> {
+                return remoteDataSource.getEpisodeItem(url)
+            }
+
+            override suspend fun resultResponse(data: EpisodeItem): Episode {
+                return EpisodeItem.transformDetailToDomain(data)
+            }
+
+            override fun shouldFetch(data: Episode?): Boolean {
                 return false
             }
         }.asFlow()

@@ -2,6 +2,7 @@ package com.eve.domain.usecase.character
 
 import com.eve.domain.Resource
 import com.eve.domain.model.Character
+import com.eve.domain.model.Episode
 import com.eve.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,5 +16,9 @@ class CharacterUseCaseImpl @Inject constructor(
 
     override fun getCharacter(id: Int?): Flow<Resource<Character>> {
         return characterRepository.getCharacter(id)
+    }
+
+    override fun getEpisodeItem(url: String): Flow<Resource<Episode>> {
+        return characterRepository.getEpisodeItem(url)
     }
 }

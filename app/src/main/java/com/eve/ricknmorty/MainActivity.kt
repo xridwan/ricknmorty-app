@@ -93,14 +93,14 @@ class MainActivity : AppCompatActivity() {
         detailViewModel.getLocation(3).observe(this) { response ->
             when (response) {
                 is Resource.Loading -> {
-                    showToast("Loading...")
+//                    showToast("Loading...")
                 }
                 is Resource.Success -> {
                     val data = response.data
-                    showToast(data?.name.toString())
+//                    showToast(data?.name.toString())
                 }
                 is Resource.Error -> {
-                    showToast(response.message.toString())
+//                    showToast(response.message.toString())
                 }
             }
         }

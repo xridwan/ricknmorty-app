@@ -31,7 +31,7 @@ data class CharacterItem(
     val name: String?,
 
     @field:SerializedName("episode")
-    val episode: List<String?>,
+    val episode: List<String>,
 
     @field:SerializedName("id")
     val id: Int?,
@@ -76,6 +76,7 @@ data class CharacterItem(
                 url = input.url.replaceIfNull(),
                 status = input.status.replaceIfNull(),
                 name = input.name.replaceIfNull(),
+                episode = input.episode
             )
         }
     }
