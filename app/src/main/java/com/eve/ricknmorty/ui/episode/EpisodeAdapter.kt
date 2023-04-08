@@ -1,6 +1,5 @@
 package com.eve.ricknmorty.ui.episode
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +35,7 @@ class EpisodeAdapter(
                 txtDate.text = data.air_date
             }
             itemView.setOnClickListener {
-                listener.listener(data)
+                listener.onClickListener(data)
             }
         }
     }
@@ -55,6 +54,6 @@ class EpisodeAdapter(
     }
 
     interface Listener {
-        fun listener(data: Episode)
+        fun onClickListener(data: Episode)
     }
 }

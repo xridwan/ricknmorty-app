@@ -10,4 +10,5 @@
     <dimen name="dimen18dp">18dp</dimen>
     <dimen name="dimen20dp">20dp</dimen>
     <dimen name="dimen24dp">24dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

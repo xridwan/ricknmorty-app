@@ -1,7 +1,6 @@
 package com.eve.ricknmorty.ui.character
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -60,18 +59,15 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
         }
     }
 
+
+    override fun onClickListener(data: Character) {
+        val intent = Intent(context, DetailCharacterActivity::class.java)
+        intent.putExtra(EXTRA_DATA, data)
+        startActivity(intent)
+    }
+
     companion object {
         private val TAG = CharacterFragment::class.java.simpleName
     }
 
-    override fun onClickListener(data: Character) {
-        showToast(data.name)
-        val intent = Intent(context, DetailCharacterActivity::class.java)
-        intent.putExtra(EXTRA_DATA, data)
-        Log.d(TAG, "onClickListener: $data")
-        startActivity(intent)
-//        startActivity(Intent(context, DetailCharacterActivity::class.java)
-//            .putExtra("CHARACTER", data))
-
-    }
 }

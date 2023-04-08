@@ -27,7 +27,8 @@ data class EpisodeEntity(
                     air_date = it.air_date,
                     episode = it.episode,
                     url = it.url,
-                    created = it.created
+                    created = it.created,
+                    character = emptyList()
                 )
             }
         }

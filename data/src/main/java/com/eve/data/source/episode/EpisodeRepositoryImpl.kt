@@ -1,11 +1,14 @@
 package com.eve.data.source.episode
 
 import com.eve.data.NetworkBoundResource
+import com.eve.data.NetworkResource
 import com.eve.data.local.entity.EpisodeEntity
 import com.eve.data.remote.network.ApiResponse
+import com.eve.data.remote.response.CharacterItem
 import com.eve.data.remote.response.EpisodeItem
 import com.eve.data.remote.response.EpisodeResponse
 import com.eve.domain.Resource
+import com.eve.domain.model.Character
 import com.eve.domain.model.Episode
 import com.eve.domain.repository.EpisodeRepository
 import kotlinx.coroutines.flow.Flow
@@ -38,4 +41,35 @@ class EpisodeRepositoryImpl @Inject constructor(
                 localDataSource.insertEpisode(dataList)
             }
         }.asFlow()
+
+    override fun getEpisode(id: Int?): Flow<Resource<Episode>> =
+        object : NetworkResource<Episode, EpisodeItem>() {
+            override suspend fun callRequest(): Flow<ApiResponse<EpisodeItem>> {
+                return remoteDataSource.getEpisode(id)
+            }
+
+            override suspend fun resultResponse(data: EpisodeItem): Episode {
+                return EpisodeItem.transformDetailToDomain(data)
+            }
+
+            override fun shouldFetch(data: Episode?): Boolean {
+                return false
+            }
+        }.asFlow()
+
+    override fun getCharacterItem(url: String?): Flow<Resource<Character>> =
+        object : NetworkResource<Character, CharacterItem>() {
+            override suspend fun callRequest(): Flow<ApiResponse<CharacterItem>> {
+                return remoteDataSource.getCharacterItem(url)
+            }
+
+            override suspend fun resultResponse(data: CharacterItem): Character {
+                return CharacterItem.transformDetailToDomain(data)
+            }
+
+            override fun shouldFetch(data: Character?): Boolean {
+                return false
+            }
+        }.asFlow()
 }
+

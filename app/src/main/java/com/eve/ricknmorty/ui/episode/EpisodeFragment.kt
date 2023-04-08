@@ -1,14 +1,16 @@
 package com.eve.ricknmorty.ui.episode
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.eve.data.utils.Constants.EXTRA_DATA
 import com.eve.domain.Resource
 import com.eve.domain.model.Episode
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentEpisodeBinding
-import com.eve.ricknmorty.utils.gone
+import com.eve.ricknmorty.ui.detailepisode.DetailEpisodeActivity
 import com.eve.ricknmorty.utils.show
 import com.eve.ricknmorty.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,9 +53,11 @@ class EpisodeFragment : BaseFragment<FragmentEpisodeBinding>(), EpisodeAdapter.L
         }
     }
 
-    override fun listener(data: Episode) {
+    override fun onClickListener(data: Episode) {
         showToast(data.name)
-        Log.d(TAG, "listener: ${data.name}")
+        val intent = Intent(context, DetailEpisodeActivity::class.java)
+        intent.putExtra(EXTRA_DATA, data)
+        startActivity(intent)
     }
 
     private fun setupRecyclerview() {

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.eve.data.local.entity.EpisodeEntity
 import com.eve.data.utils.replaceIfNull
 import com.eve.domain.model.Episode
-import com.eve.domain.model.Location
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -39,8 +38,8 @@ data class EpisodeItem(
     @field:SerializedName("air_date")
     val airDate: String?,
 
-//    @field:SerializedName("characters")
-//    val characters: List<String?>? = null,
+    @field:SerializedName("characters")
+    val characters: List<String>,
 
     @field:SerializedName("created")
     val created: String?,
@@ -81,7 +80,8 @@ data class EpisodeItem(
                 name = input.name.replaceIfNull(),
                 air_date = input.airDate.replaceIfNull(),
                 url = input.url.replaceIfNull(),
-                episode = input.episode.replaceIfNull()
+                episode = input.episode.replaceIfNull(),
+                character = input.characters
             )
         }
     }
