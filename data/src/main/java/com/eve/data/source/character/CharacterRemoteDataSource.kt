@@ -27,6 +27,19 @@ class CharacterRemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    fun getFilterCharacter(name: String): Flow<ApiResponse<CharacterResponse>> {
+        return flow {
+            try {
+                val response = characterService.getFilterCharacter(name)
+                val data = response.results
+                if (data.isNotEmpty()) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     fun getCharacter(id: Int?): Flow<ApiResponse<CharacterItem>> {
         return flow {
             try {

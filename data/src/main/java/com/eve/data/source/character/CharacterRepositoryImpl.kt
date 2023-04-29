@@ -42,6 +42,23 @@ class CharacterRepositoryImpl @Inject constructor(
             }
         }.asFlow()
 
+    override fun getFilterCharacter(name: String): Flow<Resource<List<Character>>> =
+        object : NetworkResource<List<Character>, CharacterResponse>() {
+            override suspend fun callRequest(): Flow<ApiResponse<CharacterResponse>> {
+                return remoteDataSource.getFilterCharacter(name)
+            }
+
+            override suspend fun resultResponse(data: CharacterResponse): List<Character> {
+                return emptyList()
+//                return CharacterItem.transformDetailToDomain(data.results)
+            }
+
+            override fun shouldFetch(data: List<Character>?): Boolean {
+                return false
+            }
+        }.asFlow()
+
+
     override fun getCharacter(id: Int?): Flow<Resource<Character>> =
         object : NetworkResource<Character, CharacterItem>() {
             override suspend fun callRequest(): Flow<ApiResponse<CharacterItem>> {
