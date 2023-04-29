@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +26,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailCharacterActivity : BaseActivity<ActivityDetailCharacterBinding>(), EpisodeAdapter.Listener {
+class DetailCharacterActivity : BaseActivity<ActivityDetailCharacterBinding>(),
+    EpisodeAdapter.Listener {
 
     private val viewModel: DetailCharacterViewModel by viewModels()
     private val episodeAdapter: EpisodeAdapter by lazy { EpisodeAdapter(this) }
@@ -86,26 +88,17 @@ class DetailCharacterActivity : BaseActivity<ActivityDetailCharacterBinding>(), 
             txtName.text = data?.name
             txtStatus.text = data?.status
             txtSpecies.text = data?.species
-
-            if (data?.status == "Alive") {
-                status.setCardBackgroundColor(Color.GREEN)
-            } else if (data?.status == "unknown") {
-                status.setCardBackgroundColor(Color.GRAY)
-            } else {
-                status.setCardBackgroundColor(Color.RED)
+            when (data?.status) {
+                "Alive" -> {
+                    status.setCardBackgroundColor(Color.GREEN)
+                }
+                "unknown" -> {
+                    status.setCardBackgroundColor(Color.GRAY)
+                }
+                "Dead" -> {
+                    status.setCardBackgroundColor(Color.RED)
+                }
             }
-
-//            when (data?.status) {
-//                "Alive" -> {
-//                    status.setCardBackgroundColor(Color.GREEN)
-//                }
-//                "unknown" -> {
-//                    status.setCardBackgroundColor(Color.GRAY)
-//                }
-//                "Dead" -> {
-//                    status.setCardBackgroundColor(Color.RED)
-//                }
-//            }
         }
     }
 

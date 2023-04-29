@@ -14,6 +14,10 @@ class CharacterUseCaseImpl @Inject constructor(
         return characterRepository.getAllCharacter()
     }
 
+    override fun getFilterCharacter(name: String): Flow<Resource<List<Character>>> {
+        return characterRepository.getFilterCharacter(name)
+    }
+
     override fun getCharacter(id: Int?): Flow<Resource<Character>> {
         return characterRepository.getCharacter(id)
     }
