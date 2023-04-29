@@ -79,5 +79,25 @@ data class CharacterItem(
                 episode = input.episode
             )
         }
+
+        fun transformFilterToDomain(input: CharacterResponse): List<Character> {
+            val dataList = ArrayList<Character>()
+            input.results.map {
+                val item = Character(
+                    id = it.id.replaceIfNull(),
+                    image = it.image.replaceIfNull(),
+                    gender = it.gender.replaceIfNull(),
+                    species = it.species.replaceIfNull(),
+                    created = it.created.replaceIfNull(),
+                    type = it.type.replaceIfNull(),
+                    url = it.url.replaceIfNull(),
+                    status = it.status.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
+                    episode = it.episode
+                )
+                dataList.add(item)
+            }
+            return dataList
+        }
     }
 }

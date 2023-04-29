@@ -49,8 +49,8 @@ class CharacterRepositoryImpl @Inject constructor(
             }
 
             override suspend fun resultResponse(data: CharacterResponse): List<Character> {
-                return emptyList()
-//                return CharacterItem.transformDetailToDomain(data.results)
+//                return emptyList()
+                return CharacterItem.transformFilterToDomain(data)
             }
 
             override fun shouldFetch(data: List<Character>?): Boolean {

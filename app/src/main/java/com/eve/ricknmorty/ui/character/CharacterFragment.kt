@@ -1,7 +1,6 @@
 package com.eve.ricknmorty.ui.character
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -55,16 +54,21 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
         }
 
         viewModel.searchCharacter.observe(viewLifecycleOwner) { response ->
-            when(response) {
+            when (response) {
                 is Resource.Loading -> {
-                    Log.d("TAG-SEARCH", "loading: ${response.data}")
+//                    Log.d("TAG-SEARCH", "loading: ${response.data}")
+                    showToast("Loading ...")
                 }
                 is Resource.Success -> {
-                    Log.d("TAG-SEARCH", "getAllCharacter: ${response.data}")
-                    setupView()
+//                    Log.d("TAG-SEARCH", "getAllCharacter: ${response.data}")
+                    val data = response.data
+                    showToast(response.data?.size.toString())
+                    characterAdapter.differ.submitList(data)
+//                    setupView()
                 }
                 is Resource.Error -> {
-                    Log.d("TAG-SEARCH", "error: ${response.message}")
+//                    Log.d("TAG-SEARCH", "error: ${response.message}")
+                    showToast(response.message.toString())
                 }
             }
         }
@@ -76,13 +80,11 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.toString().trim() != "") {
-                    try {
-                        viewModel.getSearchCharacter(newText.toString())
-                    } catch (e: Exception) {
-                        e.message
-                    }
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query.toString().trim() != "") {
+                    viewModel.getSearchCharacter(query.toString())
+                } else {
+                    getAllCharacter()
                 }
                 return false
             }
