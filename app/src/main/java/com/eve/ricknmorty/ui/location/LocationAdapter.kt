@@ -48,7 +48,7 @@ class LocationAdapter(
                 txtDate.text = data.type
             }
             itemView.setOnClickListener {
-                listener.listener(data)
+                listener.onClickListener(data)
             }
         }
     }
@@ -71,6 +71,6 @@ class LocationAdapter(
     }
 
     interface Listener {
-        fun listener(data: Location)
+        fun onClickListener(data: Location)
     }
 }

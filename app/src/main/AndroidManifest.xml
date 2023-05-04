@@ -16,6 +16,13 @@
         android:theme="@style/Theme.RickNMorty"
         tools:targetApi="31">
         <activity
+            android:name=".ui.detaillocation.DetailLocationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.detailepisode.DetailEpisodeActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_episode"

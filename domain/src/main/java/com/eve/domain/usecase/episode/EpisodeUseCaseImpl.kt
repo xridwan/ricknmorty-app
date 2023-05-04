@@ -14,6 +14,10 @@ class EpisodeUseCaseImpl @Inject constructor(
         return episodeRepository.getAllEpisode()
     }
 
+    override fun getFilterEpisode(name: String): Flow<Resource<List<Episode>>> {
+        return episodeRepository.getFilterEpisode(name)
+    }
+
     override fun getEpisode(id: Int?): Flow<Resource<Episode>> {
         return episodeRepository.getEpisode(id)
     }

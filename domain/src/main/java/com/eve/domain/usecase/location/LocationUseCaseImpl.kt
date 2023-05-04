@@ -1,6 +1,7 @@
 package com.eve.domain.usecase.location
 
 import com.eve.domain.Resource
+import com.eve.domain.model.Character
 import com.eve.domain.model.Location
 import com.eve.domain.repository.LocationRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +14,15 @@ class LocationUseCaseImpl @Inject constructor(
         return locationRepository.getAllLocation()
     }
 
-    override fun getLocation(id: Int): Flow<Resource<Location>> {
+    override fun getFilterLocation(name: String): Flow<Resource<List<Location>>> {
+        return locationRepository.getFilterLocation(name)
+    }
+
+    override fun getLocation(id: Int?): Flow<Resource<Location>> {
         return locationRepository.getLocation(id)
+    }
+
+    override fun getCharacterItem(url: String?): Flow<Resource<Character>> {
+        return locationRepository.getCharacterItem(url)
     }
 }

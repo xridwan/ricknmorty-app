@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationRepository {
     fun getAllLocation(): Flow<Resource<List<Location>>>
-    fun getLocation(id: Int): Flow<Resource<Location>>
+    fun getFilterLocation(name: String): Flow<Resource<List<Location>>>
+    fun getLocation(id: Int?): Flow<Resource<Location>>
+    fun getCharacterItem(url: String?): Flow<Resource<Character>>
 }

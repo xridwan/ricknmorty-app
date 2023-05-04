@@ -55,6 +55,8 @@ data class LocationItem(
 
     @field:SerializedName("url")
     val url: String?,
+
+    val residents: List<String>,
 ) : Parcelable {
     companion object {
         fun transformToEntities(input: LocationResponse): List<LocationEntity> {
@@ -73,6 +75,23 @@ data class LocationItem(
             return dataList
         }
 
+        fun transformFilterToDomain(input: LocationResponse): List<Location> {
+            val dataList = ArrayList<Location>()
+            input.results.map {
+                val item = Location(
+                    id = it.id.replaceIfNull(),
+                    created = it.created.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
+                    type = it.type.replaceIfNull(),
+                    dimension = it.dimension.replaceIfNull(),
+                    url = it.url.replaceIfNull(),
+                    residents = it.residents
+                )
+                dataList.add(item)
+            }
+            return dataList
+        }
+
         fun transformDetailToDomain(input: LocationItem): Location {
             return Location(
                 id = input.id.replaceIfNull(),
@@ -81,6 +100,7 @@ data class LocationItem(
                 type = input.type.replaceIfNull(),
                 dimension = input.dimension.replaceIfNull(),
                 url = input.url.replaceIfNull(),
+                residents = input.residents
             )
         }
     }

@@ -11,4 +11,5 @@ data class Location(
     val type: String,
     val dimension: String,
     val url: String,
+    val residents: List<String>
 ) : Parcelable

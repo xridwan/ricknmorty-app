@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
-    android:padding="16dp"
-    tools:context=".ui.detailepisode.DetailEpisodeActivity">
+    tools:context=".ui.detaillocation.DetailLocationActivity">
 
     <include
-        android:id="@+id/detailEpisodeLayout"
+        android:id="@+id/detailLocationLayout"
         layout="@layout/view_detail"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

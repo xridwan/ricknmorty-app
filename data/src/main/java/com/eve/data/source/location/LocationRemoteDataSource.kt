@@ -1,6 +1,7 @@
 package com.eve.data.source.location
 
 import com.eve.data.remote.network.ApiResponse
+import com.eve.data.remote.response.CharacterItem
 import com.eve.data.remote.response.LocationItem
 import com.eve.data.remote.response.LocationResponse
 import com.eve.data.remote.service.LocationService
@@ -27,10 +28,35 @@ class LocationRemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getLocation(id: Int): Flow<ApiResponse<LocationItem>> {
+    fun getFilterLocation(name: String): Flow<ApiResponse<LocationResponse>> {
+        return flow {
+            try {
+                val response = locationService.getFilterLocation(name)
+                val data = response.results
+                if (data.isNotEmpty()) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getLocation(id: Int?): Flow<ApiResponse<LocationItem>> {
         return flow {
             try {
                 val response = locationService.getLocation(id)
+                if (response.id != null) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getCharacterItem(url: String?): Flow<ApiResponse<CharacterItem>> {
+        return flow {
+            try {
+                val response = locationService.getCharacterItem(url)
                 if (response.id != null) emit(ApiResponse.Success(response))
                 else emit(ApiResponse.Empty)
             } catch (e: Exception) {

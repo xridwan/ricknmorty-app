@@ -73,6 +73,23 @@ data class EpisodeItem(
             return dataList
         }
 
+        fun transformFilterToDomain(input: EpisodeResponse): List<Episode> {
+            val dataList = ArrayList<Episode>()
+            input.results.map {
+                val item = Episode(
+                    id = it.id.replaceIfNull(),
+                    name = it.name.replaceIfNull(),
+                    air_date = it.airDate.replaceIfNull(),
+                    episode = it.episode.replaceIfNull(),
+                    url = it.episode.replaceIfNull(),
+                    created = it.created.replaceIfNull(),
+                    character = it.characters
+                )
+                dataList.add(item)
+            }
+            return dataList
+        }
+
         fun transformDetailToDomain(input: EpisodeItem): Episode {
             return Episode(
                 id = input.id.replaceIfNull(),
