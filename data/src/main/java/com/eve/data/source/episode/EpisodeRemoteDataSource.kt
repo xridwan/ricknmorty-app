@@ -28,6 +28,19 @@ class EpisodeRemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    fun getFilterEpisode(name: String): Flow<ApiResponse<EpisodeResponse>> {
+        return flow {
+            try {
+                val response = episodeService.getFilterEpisode(name)
+                val data = response.results
+                if (data.isNotEmpty()) emit(ApiResponse.Success(response))
+                else emit(ApiResponse.Empty)
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     fun getEpisode(id: Int?): Flow<ApiResponse<EpisodeItem>> {
         return flow {
             try {

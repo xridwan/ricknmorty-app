@@ -1,6 +1,7 @@
 package com.eve.ricknmorty.ui.character
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -11,6 +12,7 @@ import com.eve.domain.model.Character
 import com.eve.ricknmorty.base.BaseFragment
 import com.eve.ricknmorty.databinding.FragmentCharacterBinding
 import com.eve.ricknmorty.ui.detailcharacter.DetailCharacterActivity
+import com.eve.ricknmorty.utils.gone
 import com.eve.ricknmorty.utils.show
 import com.eve.ricknmorty.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +33,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
 
     override fun initialization() {
         getAllCharacter()
+        getSearchCharacter()
         searchCharacter()
     }
 
@@ -52,23 +55,25 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding>(), CharacterAda
                 }
             }
         }
+    }
 
+    private fun getSearchCharacter() {
         viewModel.searchCharacter.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Loading -> {
-//                    Log.d("TAG-SEARCH", "loading: ${response.data}")
+                    binding.rvCharacter.gone()
+                    showShimmer(binding.shimmerCharacter.root)
                     showToast("Loading ...")
                 }
                 is Resource.Success -> {
-//                    Log.d("TAG-SEARCH", "getAllCharacter: ${response.data}")
                     val data = response.data
-                    showToast(response.data?.size.toString())
+                    dismissShimmer(binding.shimmerCharacter.root)
+                    binding.rvCharacter.show()
                     characterAdapter.differ.submitList(data)
-//                    setupView()
                 }
                 is Resource.Error -> {
-//                    Log.d("TAG-SEARCH", "error: ${response.message}")
                     showToast(response.message.toString())
+                    Log.d(TAG, "Search Error: ${response.message}")
                 }
             }
         }

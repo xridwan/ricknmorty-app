@@ -28,6 +28,7 @@ data class LocationEntity(
                     type = it.type,
                     dimension = it.dimension,
                     url = it.url,
+                    residents = emptyList()
                 )
             }
         }

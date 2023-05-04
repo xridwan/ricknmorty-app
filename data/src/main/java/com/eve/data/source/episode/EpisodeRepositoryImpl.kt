@@ -42,6 +42,22 @@ class EpisodeRepositoryImpl @Inject constructor(
             }
         }.asFlow()
 
+    override fun getFilterEpisode(name: String): Flow<Resource<List<Episode>>> =
+        object : NetworkResource<List<Episode>, EpisodeResponse>() {
+            override suspend fun callRequest(): Flow<ApiResponse<EpisodeResponse>> {
+                return remoteDataSource.getFilterEpisode(name)
+            }
+
+            override suspend fun resultResponse(data: EpisodeResponse): List<Episode> {
+                return EpisodeItem.transformFilterToDomain(data)
+            }
+
+            override fun shouldFetch(data: List<Episode>?): Boolean {
+                return false
+            }
+        }.asFlow()
+
+
     override fun getEpisode(id: Int?): Flow<Resource<Episode>> =
         object : NetworkResource<Episode, EpisodeItem>() {
             override suspend fun callRequest(): Flow<ApiResponse<EpisodeItem>> {

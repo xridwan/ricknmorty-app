@@ -10,6 +10,8 @@ interface EpisodeUseCase {
 
     fun getAllEpisode(): Flow<Resource<List<Episode>>>
 
+    fun getFilterEpisode(name: String): Flow<Resource<List<Episode>>>
+
     fun getEpisode(id: Int?): Flow<Resource<Episode>>
 
     fun getCharacterItem(url: String?): Flow<Resource<Character>>
